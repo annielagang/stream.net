@@ -15,6 +15,7 @@ Stream.Net is a C#-port of [stream.js](http://streamjs.org/) library (created by
 * [Alternative Way of Creating Infinite Streams](#alt-ctor)
 * [Streams at Work](#work)
 * [Tribute](#tribute)
+* [Other Stream Implementations in CSharp](#others)
 
 # <a name="req"></a>Requirements
 * .Net 4.0 or newer
@@ -228,7 +229,7 @@ var builtInNats = Stream.MakeNaturalNumbers();
 builtInNats.Print();
 ```
 
-Another way to build an infinite series of a certain type is to use `Stream<T>.Repeat()`,`Stream<T>.Cycle()` or to use one of the different Stream constructor overloads.
+Another way to build an infinite series of a certain type is to use `Stream<T>.Repeat()`,`Stream<T>.Cycle()`, `Stream<T>.Iterate()` or to use one of the different Stream constructor overloads.
 
 ```
 // "Hi" string printed 20 times
@@ -237,12 +238,14 @@ Stream<string>.Repeat("hi").Print();
 // Prints the first 20 items from a infinitely repeating 1,2,3 stream
 Stream<int>.Cycle(1, 2, 3).Print();
 
+// Stream<int>.Iterate invokes the func on the first param
+var evens = Stream<int>.Iterate(0, x => x + 2);
+evens.Print("Evens"); 
+
 // Infinite stream creation via constructors
+// almost same as Stream<int>.Iterate but uses the first param as head instead
 var odds = new Stream<int>(1, x => x + 2);
 odds.Print("Odds");
-
-var evens = new Stream<int>(2, x => x + 2);
-evens.Print("Evens");
 
 var powTwo = new Stream<int>(2, 2, (x, y) => x * y);
 powTwo.Print("Powers of Two 2");
@@ -279,3 +282,10 @@ fibonacci(1, 1).Print("First 20 Fibonacci");
 Streams aren't in fact a new idea at all. Many functional languages support them. The name 'stream' is used in Scheme, a LISP dialect that supports these features. Haskell also supports infinite lists. The names 'take', 'tail', 'head', 'map' and 'filter' are all used in Haskell. A different but similar concept also exists in Python and in many other languages; these are called "generators".
 
 Many of the examples and ideas come from the book [Structure and Interpretation of Computer Programs] (http://mitpress.mit.edu/sicp/full-text/book/book.html). If you like the ideas here, it comes highly recommended; it's available online for free. It was the original inspiration for building this library.
+
+# <a name="others"></a>Other Stream Implementations in CSharp
+* [C# Infinite Streams] (https://gist.github.com/edalorzo/5015143) - stream library implements [Null Object pattern] (http://en.wikipedia.org/wiki/Null_Object_pattern)
+* [Lazy Lists in C#] (http://porg.es/blog/lazy-lists-in-c) - streams as IEnumerable
+* [Scala Infinite Streams in C#] (https://gist.github.com/maxgherman/04662d0f263c0f9390ab)
+* [Digging deeper into C# Lazy Lists] (http://blogs.msdn.com/b/matt/archive/2008/03/14/digging-deeper-into-lazy-and-functional-c.aspx)
+* [More on laziness in C#] (http://joeduffyblog.com/2005/04/23/more-on-laziness-in-c/) - streams implemented as a pair of value and thunk 
