@@ -1,7 +1,7 @@
 Stream.Net
 ========
 
-Stream.Net is a C#-port of [stream.js](http://streamjs.org/) library (created by Dionysis Zindros) that uses a data structure called streams. It resides in `Seq` namespace to avoid name collisions with .Net library `System.IO.Stream`. 
+Stream.Net is a C#-port of [stream.js](https://github.com/dionyziz/stream.js) library (created by Dionysis Zindros) that uses a data structure called streams. It resides in `Seq` namespace to avoid name collisions with .Net library `System.IO.Stream`. 
 
 # Table of Contents
  
