@@ -1,0 +1,56 @@
+﻿ /*
+  * This file contains code snippets that aren't used in the library
+  * but was used before or can be used in the future.
+  */
+ 
+ // Stream<T>.Make overload
+ // same as public Stream(T head, Func<T, T> func) : this(head, () => Stream<T>.Empty) constructor
+ public static Stream<T> Make(T head, Func<T, T> func)
+ {
+	Func<T, Stream<T>> helperFunc = null;
+    helperFunc = x => new Stream<T>(x, () => helperFunc(func(x)));
+    return helperFunc.Invoke(head);
+ }
+
+ public static Stream<int> Iterate(int x, Func<int, int> func)
+ {
+	return new Stream<int>(x, () => Stream.Iterate(func(x), func));
+ }
+
+ public static Stream<T> Make(T head, T item, Func<T, T, T> func)
+ {
+	Func<T, T, Stream<T>> helperFunc = null;
+    helperFunc = (x, y) => new Stream<T>(x, () => helperFunc(func(x, y), y));
+    return helperFunc.Invoke(head, item);
+ }
+
+ // This function will try to perform operations to numeric types else InvalidOperationException error will be raised.
+ public static T GenericOp<T>(T a, T b, ExpressionType operand)
+ {
+	// borrowed idea from from MiscUtil's Generic Operators
+	// SOURCE: http://www.yoda.arachsys.com/csharp/miscutil/usage/genericoperators.html
+    ParameterExpression paramA = Expression.Parameter(typeof(T), "a"),
+    paramB = Expression.Parameter(typeof(T), "b");
+    BinaryExpression body = Expression.MakeBinary(operand, paramA, paramB);
+    Func<T, T, T> lambda = Expression.Lambda<Func<T, T, T>>(body, paramA, paramB).Compile();
+    return lambda(a, b);
+ }  
+
+ /// <summary>
+ /// Concatenate a list of lists.
+ /// </summary>    
+ public static Stream<T> Concat<T>(this Stream<T> stream, Func<T, T> func)
+ {
+	return null;
+    //return stream.Map(func).Reduce((x, y) => GenericOp<T>(x, y, ExpressionType.Add));
+ }
+
+/// <summary>
+/// Map a function over a list and concatenate the results.
+/// </summary>    
+public static Stream<T> ConcatMap<T>(this Stream<T> stream, Func<T, T> func)
+{
+	return stream.Map(func).Reduce((x, y) => GenericOp<T>(x, y, ExpressionType.Add));
+}
+
+       

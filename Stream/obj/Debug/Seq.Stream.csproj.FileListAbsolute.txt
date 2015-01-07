@@ -1,0 +1,5 @@
+C:\Users\amblmay\Documents\Visual Studio 2010\Side Projects\SimplerImpl\Stream\Stream\bin\Debug\Seq.Stream.dll
+C:\Users\amblmay\Documents\Visual Studio 2010\Side Projects\SimplerImpl\Stream\Stream\bin\Debug\Seq.Stream.pdb
+C:\Users\amblmay\Documents\Visual Studio 2010\Side Projects\SimplerImpl\Stream\Stream\obj\Debug\Seq.Stream.dll
+C:\Users\amblmay\Documents\Visual Studio 2010\Side Projects\SimplerImpl\Stream\Stream\obj\Debug\Seq.Stream.pdb
+C:\Users\amblmay\Documents\Visual Studio 2010\Side Projects\SimplerImpl\Stream\Stream\obj\Debug\Seq.Stream.csprojResolveAssemblyReference.cache
